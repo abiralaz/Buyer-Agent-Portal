@@ -52,16 +52,6 @@ export const AuthProvider = ({ children }) => {
 
     const signup = async (payload) => {
         const response = await registerUser(payload);
-        const authData = response.data;
-
-        setAuthData({
-            token: authData.token,
-            user: authData.user,
-        });
-
-        setUser(authData.user);
-        setToken(authData.token);
-
         return response;
     };
 
