@@ -38,6 +38,18 @@ const Navbar = () => {
                 Users
               </NavLink>
             )}
+            {["admin", "agent"].includes(user?.role) && (
+              <NavLink
+                to="/properties"
+                className={({ isActive }) =>
+                  `rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+                    isActive ? "text-blue-800" : "hover:text-blue-600"
+                  }`
+                }
+              >
+                Properties
+              </NavLink>
+            )}
           </nav>
 
           <div className="text-black">|</div>

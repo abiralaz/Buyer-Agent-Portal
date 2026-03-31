@@ -51,7 +51,19 @@ const adminOnly = (req, res, next) => {
     next();
 };
 
+const adminOrAgent = (req, res, next) => {
+    if (!req.user || !['admin', 'agent'].includes(req.user.role)) {
+        return res.status(403).json({
+            success: false,
+            message: 'Admin or agent access required',
+        });
+    }
+
+    next();
+};
+
 module.exports = {
     protect,
     adminOnly,
+    adminOrAgent,
 };

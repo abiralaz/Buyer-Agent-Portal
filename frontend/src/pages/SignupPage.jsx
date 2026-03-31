@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import AuthLayout from '../components/AuthLayout';
 import { useAuth } from '../context/AuthContext';
 
@@ -15,6 +16,7 @@ const SignupPage = () => {
     role: 'buyer',
   });
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (event) => {
     setForm((prev) => ({
@@ -76,14 +78,24 @@ const SignupPage = () => {
 
         <div>
           <label className="mb-1.5 block text-sm font-medium text-blue-900">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            className="w-full rounded-xl border border-blue-200 bg-blue-50/40 px-4 py-2.5 text-blue-950 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-            placeholder="Create a password"
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-blue-200 bg-blue-50/40 px-4 py-2.5 pr-11 text-blue-950 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+              placeholder="Create a password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 transition hover:text-blue-700"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
         </div>
 
         <div>

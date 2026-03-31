@@ -3,6 +3,8 @@ import LoginPage from '../pages/LoginPage';
 import SignupPage from '../pages/SignupPage';
 import DashboardPage from '../pages/DashboardPage';
 import AdminUsersPage from '../pages/AdminUsersPage';
+import PropertiesPage from '../pages/PropertiesPage';
+import AddPropertyPage from '../pages/AddPropertyPage';
 import ProtectedRoute from '../components/ProtectedRoute';
 
 const AppRoutes = () => {
@@ -24,6 +26,22 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute allowedRoles={['admin']}>
             <AdminUsersPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/properties"
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'agent']}>
+            <PropertiesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/properties/new"
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'agent']}>
+            <AddPropertyPage />
           </ProtectedRoute>
         }
       />
