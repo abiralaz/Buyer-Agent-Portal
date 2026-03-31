@@ -17,6 +17,7 @@ const seedData = async () => {
         await Property.deleteMany();
 
         const hashedPassword = await bcrypt.hash('Password123', 10);
+        const adminHashedPassword = await bcrypt.hash('adminUser', 10);
 
         const demoUser = await User.create({
             name: 'Demo Buyer',
@@ -27,8 +28,8 @@ const seedData = async () => {
 
         const adminUser = await User.create({
             name: 'Admin User',
-            email: 'admin@example.com',
-            password: hashedPassword,
+            email: 'admin@admin.com',
+            password: adminHashedPassword,
             role: 'admin',
         });
 
@@ -72,7 +73,7 @@ const seedData = async () => {
 
         console.log('Seed complete');
         console.log('Demo buyer:', demoUser.email, '/ Password123');
-        console.log('Admin user:', adminUser.email, '/ Password123');
+        console.log('Admin user:', adminUser.email, '/ adminUser');
         console.log(`Seeded ${properties.length} properties`);
 
         process.exit(0);

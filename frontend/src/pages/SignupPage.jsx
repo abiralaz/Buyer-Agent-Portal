@@ -96,7 +96,6 @@ const SignupPage = () => {
           >
             <option value="buyer">Buyer</option>
             <option value="agent">Agent</option>
-            <option value="admin">Admin</option>
           </select>
         </div>
 

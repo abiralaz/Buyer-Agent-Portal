@@ -38,8 +38,8 @@ router.post(
 
         body('role')
             .optional()
-            .isIn(['buyer', 'agent', 'admin'])
-            .withMessage('Role must be buyer, agent, or admin'),
+            .isIn(['buyer', 'agent'])
+            .withMessage('Role must be buyer or agent'),
     ],
     validateRequest,
     registerUser

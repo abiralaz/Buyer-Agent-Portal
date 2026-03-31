@@ -77,6 +77,9 @@ const LoginPage = () => {
         <div className="text-center rounded-xl border border-blue-100 bg-blue-50/80 px-4 py-3 text-sm text-blue-800">
           Demo user: <span className="font-medium">buyer@example.com</span> /{' '}
           <span className="font-medium">Password123</span>
+          <br />
+          Admin user: <span className="font-medium">admin@admin.com</span> /{' '}
+          <span className="font-medium">adminUser</span>
         </div>
 
         <p className="text-center text-sm text-black-800/80">
