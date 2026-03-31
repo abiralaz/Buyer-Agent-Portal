@@ -1,8 +1,9 @@
 const express = require('express');
+
+const { getProperties } = require('../controllers/propertyController');
+
 const router = express.Router();
 
-router.get('/test', (req, res) => {
-    res.json({ success: true, message: 'Property routes are working' });
-});
+router.get('/', getProperties);
 
 module.exports = router;
