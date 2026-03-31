@@ -1,16 +1,38 @@
-require('dotenv').config();
+import express from "express";
+import dotenv from "dotenv";
 
-const app = require('./app');
-const connectDB = require('./config/db');
+dotenv.config();
 
-const PORT = process.env.PORT || 5000;
+process.on("uncaughtException", (err) => {
+    console.error("UNCAUGHT EXCEPTION:", err);
+});
 
-const startServer = async () => {
-    await connectDB();
+process.on("unhandledRejection", (err) => {
+    console.error("UNHANDLED REJECTION:", err);
+});
 
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-    });
-};
+const app = express();
+
+console.log("Starting app...");
+console.log("PORT =", process.env.PORT);
+console.log("MONGO_URI exists =", !!process.env.MONGO_URI);
+console.log("JWT_SECRET exists =", !!process.env.JWT_SECRET);
+
+async function startServer() {
+    try {
+        const PORT = process.env.PORT || 10000;
+
+        app.get("/", (req, res) => {
+            res.send("Server running");
+        });
+
+        app.listen(PORT, "0.0.0.0", () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.error("STARTUP ERROR:", error);
+        process.exit(1);
+    }
+}
 
 startServer();
