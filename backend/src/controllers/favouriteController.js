@@ -9,11 +9,13 @@ const getMyFavourites = asyncHandler(async (req, res) => {
         .populate('property')
         .sort({ createdAt: -1 });
 
+    const validFavourites = favourites.filter((item) => item.property);
+
     res.status(200).json({
         success: true,
         message: 'Favourites fetched successfully',
         data: {
-            favourites,
+            favourites: validFavourites,
         },
     });
 });
