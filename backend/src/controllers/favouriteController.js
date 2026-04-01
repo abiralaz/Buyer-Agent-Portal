@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const Favourite = require('../models/Favourite');
-const Property = require('../models/Property');
-const asyncHandler = require('../utils/asyncHandler');
+import Favourite from '../models/Favourite.js';
+import Property from '../models/Property.js';
+import asyncHandler from '../utils/asyncHandler.js';
 
 const getMyFavourites = asyncHandler(async (req, res) => {
     const favourites = await Favourite.find({ user: req.user._id })
@@ -95,8 +95,4 @@ const removeFavourite = asyncHandler(async (req, res) => {
     });
 });
 
-module.exports = {
-    getMyFavourites,
-    addFavourite,
-    removeFavourite,
-};
+export { getMyFavourites, addFavourite, removeFavourite };

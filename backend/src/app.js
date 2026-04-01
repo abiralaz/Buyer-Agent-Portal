@@ -1,12 +1,13 @@
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
 
-const authRoutes = require('./routes/authRoutes');
-const propertyRoutes = require('./routes/propertyRoutes');
-const favouriteRoutes = require('./routes/favouriteRoutes');
+import authRoutes from './routes/authRoutes.js';
+import propertyRoutes from './routes/propertyRoutes.js';
+import favouriteRoutes from './routes/favouriteRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
-const notFound = require('./middleware/notFound');
-const errorHandler = require('./middleware/errorHandler');
+import notFound from './middleware/notFound.js';
+import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
 
@@ -36,11 +37,16 @@ app.get('/api/health', (req, res) => {
     });
 });
 
+app.get('/', (req, res) => {
+    res.send('Server running');
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/property', propertyRoutes);
 app.use('/api/favourite', favouriteRoutes);
+app.use('/api/users', userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
 
-module.exports = app;
+export default app;

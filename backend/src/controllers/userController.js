@@ -1,5 +1,5 @@
-const User = require('../models/User');
-const asyncHandler = require('../utils/asyncHandler');
+import User from '../models/User.js';
+import asyncHandler from '../utils/asyncHandler.js';
 
 const getAllUsers = asyncHandler(async (req, res) => {
     const users = await User.find({}, 'name email role createdAt').sort({ createdAt: -1 });
@@ -13,6 +13,4 @@ const getAllUsers = asyncHandler(async (req, res) => {
     });
 });
 
-module.exports = {
-    getAllUsers,
-};
+export { getAllUsers };

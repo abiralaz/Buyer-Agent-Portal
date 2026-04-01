@@ -1,14 +1,14 @@
-const express = require('express');
-const { param } = require('express-validator');
+import express from 'express';
+import { param } from 'express-validator';
 
-const {
+import {
     getMyFavourites,
     addFavourite,
     removeFavourite,
-} = require('../controllers/favouriteController');
+} from '../controllers/favouriteController.js';
 
-const { protect } = require('../middleware/authMiddleware');
-const validateRequest = require('../middleware/validateRequest');
+import { protect } from '../middleware/authMiddleware.js';
+import validateRequest from '../middleware/validateRequest.js';
 
 const router = express.Router();
 
@@ -38,4 +38,4 @@ router.delete(
     removeFavourite
 );
 
-module.exports = router;
+export default router;

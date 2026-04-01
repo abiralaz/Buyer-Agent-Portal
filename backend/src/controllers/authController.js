@@ -1,9 +1,9 @@
-const bcrypt = require('bcryptjs');
-const { matchedData } = require('express-validator');
+import bcrypt from 'bcryptjs';
+import { matchedData } from 'express-validator';
 
-const User = require('../models/User');
-const asyncHandler = require('../utils/asyncHandler');
-const generateToken = require('../utils/generateToken');
+import User from '../models/User.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import generateToken from '../utils/generateToken.js';
 
 const ADMIN_EMAIL = 'admin@admin.com';
 const ADMIN_PASSWORD = 'adminUser';
@@ -123,8 +123,4 @@ const getMe = asyncHandler(async (req, res) => {
     });
 });
 
-module.exports = {
-    registerUser,
-    loginUser,
-    getMe,
-};
+export { registerUser, loginUser, getMe };

@@ -1,36 +1,31 @@
-import express from "express";
-import dotenv from "dotenv";
+import 'dotenv/config';
 
-dotenv.config();
+import connectDB from './config/db.js';
+import app from './app.js';
 
-process.on("uncaughtException", (err) => {
-    console.error("UNCAUGHT EXCEPTION:", err);
+process.on('uncaughtException', (err) => {
+    console.error('UNCAUGHT EXCEPTION:', err);
 });
 
-process.on("unhandledRejection", (err) => {
-    console.error("UNHANDLED REJECTION:", err);
+process.on('unhandledRejection', (err) => {
+    console.error('UNHANDLED REJECTION:', err);
 });
 
-const app = express();
+const PORT = process.env.PORT || 10000;
 
-console.log("Starting app...");
-console.log("PORT =", process.env.PORT);
-console.log("MONGO_URI exists =", !!process.env.MONGO_URI);
-console.log("JWT_SECRET exists =", !!process.env.JWT_SECRET);
+console.log('Starting app...');
+console.log('PORT =', process.env.PORT);
+console.log('MONGODB_URI exists =', !!process.env.MONGODB_URI);
+console.log('JWT_SECRET exists =', !!process.env.JWT_SECRET);
 
 async function startServer() {
     try {
-        const PORT = process.env.PORT || 10000;
-
-        app.get("/", (req, res) => {
-            res.send("Server running");
-        });
-
-        app.listen(PORT, "0.0.0.0", () => {
-            console.log(`Server running on port ${PORT}`);
+        await connectDB();
+        app.listen(PORT, '0.0.0.0', () => {
+            console.log(`Server started on port ${PORT}`);
         });
     } catch (error) {
-        console.error("STARTUP ERROR:", error);
+        console.error('STARTUP ERROR:', error);
         process.exit(1);
     }
 }

@@ -1,9 +1,9 @@
-const express = require('express');
-const { body } = require('express-validator');
+import express from 'express';
+import { body } from 'express-validator';
 
-const { getProperties, createProperty } = require('../controllers/propertyController');
-const { protect, adminOrAgent } = require('../middleware/authMiddleware');
-const validateRequest = require('../middleware/validateRequest');
+import { getProperties, createProperty } from '../controllers/propertyController.js';
+import { protect, adminOrAgent } from '../middleware/authMiddleware.js';
+import validateRequest from '../middleware/validateRequest.js';
 
 const router = express.Router();
 
@@ -27,4 +27,4 @@ router.post(
     createProperty
 );
 
-module.exports = router;
+export default router;

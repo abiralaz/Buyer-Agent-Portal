@@ -1,5 +1,5 @@
-const Property = require('../models/Property');
-const asyncHandler = require('../utils/asyncHandler');
+import Property from '../models/Property.js';
+import asyncHandler from '../utils/asyncHandler.js';
 
 const getProperties = asyncHandler(async (req, res) => {
     const properties = await Property.find().sort({ createdAt: -1 });
@@ -33,7 +33,4 @@ const createProperty = asyncHandler(async (req, res) => {
     });
 });
 
-module.exports = {
-    getProperties,
-    createProperty,
-};
+export { getProperties, createProperty };

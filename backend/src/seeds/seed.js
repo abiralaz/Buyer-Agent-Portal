@@ -1,11 +1,10 @@
-require('dotenv').config();
+import 'dotenv/config';
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-
-const User = require('../models/User');
-const Property = require('../models/Property');
-const Favourite = require('../models/Favourite');
+import User from '../models/User.js';
+import Property from '../models/Property.js';
+import Favourite from '../models/Favourite.js';
 
 const seedData = async () => {
     try {
